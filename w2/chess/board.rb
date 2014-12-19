@@ -62,7 +62,6 @@ class Board
   def can_check?(king_position)
     grid.any? do |row|
       row.any? do |piece|
-        # byebug if !piece.nil? && piece.color == :black && piece.pos == [7,0]
         piece && piece.moves.include?(king_position)
       end
     end
@@ -80,9 +79,7 @@ class Board
   end
 
   def on_board?(pos)
-    pos.all? do |p|
-      p.between?(0, 7)
-    end
+    pos.all? { |p| p.between?(0, 7) }
   end
 
   def empty?(pos)
@@ -122,9 +119,9 @@ class Board
       row.map.with_index do |piece, col_i|
         if [row_i, col_i] == cursor_position
           if piece.nil?
-            "*".blue
+            "*".cyan
           else
-            SYMBOL_HASH[piece.color][piece.symbol].blue
+            SYMBOL_HASH[piece.color][piece.symbol].cyan
           end
         else
           if piece.nil?

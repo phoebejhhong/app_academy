@@ -28,7 +28,6 @@ class Piece
   end
 
   def dup(new_board)
-    # self.class.new()
     Piece.create(symbol, pos, color, new_board)
   end
 
@@ -54,9 +53,7 @@ class Piece
   end
 
   def valid_moves
-    moves.reject do |move|
-      move_into_check?(move)
-    end
+    moves.reject { |move| move_into_check?(move) }
   end
 
   def move_into_check?(end_pos)
@@ -99,7 +96,7 @@ class SteppingPieces < Piece
         possible_moves << move
       end
     end
-    
+
     possible_moves
   end
 end
