@@ -1,5 +1,9 @@
-Projects done while studying at a/A
+App Academy Projects
+==============
 
 Ruby
+--------------
+
 w1 : Word Chains
+
 w2 : Minesweeper
