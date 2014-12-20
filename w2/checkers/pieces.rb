@@ -22,7 +22,7 @@ class Piece
     if king
       OFFSETS_DOWN + OFFSETS_UP
     else
-      directions = (color == :black) ? OFFSETS_DOWN : OFFSETS_UP
+      (color == :black) ? OFFSETS_DOWN : OFFSETS_UP
     end
   end
 

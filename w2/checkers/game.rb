@@ -24,7 +24,7 @@ class Game
     begin
       message ||= "#{color.to_s.capitalize}'s turn. \nWhich piece?"
       board.render([0,0], message)
-      start_pos = kb_user_input
+      start_pos = kb_user_input([0,0], message)
       unless board[start_pos]
         raise InvalidMoveError.new "Nothing's there!"
       end
@@ -62,7 +62,7 @@ class Game
       end
       # Print board with new cursor position
       board.render(current_pos, message)
-      kb_user_input(current_pos)
+      kb_user_input(current_pos, message)
     end
 
     current_pos
