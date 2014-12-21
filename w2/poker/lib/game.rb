@@ -46,7 +46,7 @@ class Game
     current_players.sort! {|p1, p2| p1.hand.value_higher?(p2.hand)}
     if current_players.count == 1
       puts "#{current_player[0]} wins the pot of #{total_bet}."
-    elsif current_players[-1].value_higher?(current_players[-2]) == 0
+    elsif current_players[-1].hand.value_higher?(current_players[-2].hand) == 0
       puts "It's a draw."
       puts "#{current_players}"
     else
