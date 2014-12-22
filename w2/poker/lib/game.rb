@@ -26,8 +26,8 @@ class Game
     until raised == false
       raised = false
       current_players.each do |player|
-        raised = true if player.make_bet
         return if current_players.count == 1
+        raised = true if player.make_bet
         puts "The number of players is #{current_players.count}."
         puts "The current bet is #{bet} and total bet is #{total_bet}"
         puts "Your pot is #{player.pot}."
