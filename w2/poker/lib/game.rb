@@ -10,7 +10,8 @@ class Game
   def initialize(num_of_players)
     @deck = Deck.new
     @players = @current_players = Array.new(num_of_players) { Player.new(self) }
-    @bet = @total_bet = 0
+    @bet = 0
+    @total_bet = 0
   end
 
   def run
@@ -28,7 +29,7 @@ class Game
         raised = true if player.make_bet
         return if current_players.count == 1
         puts "The number of players is #{current_players.count}."
-        puts "The current bet is #{bet}."
+        puts "The current bet is #{bet} and total bet is #{total_bet}"
         puts "Your pot is #{player.pot}."
       end
     end
@@ -45,7 +46,7 @@ class Game
   def win_phase
     current_players.sort! {|p1, p2| p1.hand.value_higher?(p2.hand)}
     if current_players.count == 1
-      puts "#{current_player[0]} wins the pot of #{total_bet}."
+      puts "#{current_players[0]} wins the pot of #{total_bet}."
     elsif current_players[-1].hand.value_higher?(current_players[-2].hand) == 0
       puts "It's a draw."
       puts "#{current_players}"

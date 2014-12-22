@@ -1,7 +1,7 @@
 class Player
 
   attr_accessor :pot, :hand
-  attr_reader :game, :deck, :initial_pot
+  attr_reader  :game, :deck, :initial_pot
 
   def initialize(game)
     @game = game
@@ -43,18 +43,16 @@ class Player
     "Player with hand of #{@hand}"
   end
 
-  def actual_bet(num = 0)
-      num + game.bet - (initial_pot - pot)
-  end
-
   def raise_bet(num)
-    @pot -= actual_bet(num)
     game.bet += num
-    game.total_bet += actual_bet
+    actual_bet = game.bet - (initial_pot - pot)
+    @pot -= actual_bet
+    game.total_bet = actual_bet
     true
   end
 
   def see
+    actual_bet = game.bet - (initial_pot - pot)
     raise InvalidInputError.new "Slow down, high roller." if actual_bet > pot
     raise InvalidInputError.new "No one's made a bet yet" if game.bet == 0
     @pot -= actual_bet

@@ -1,5 +1,5 @@
 require 'rspec'
-require 'arrays.rb'
+require 'arrays_exercises'
 
 describe "my_uniq" do
   it "takes an empty array" do
