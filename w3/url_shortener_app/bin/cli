@@ -1,0 +1,42 @@
+begin
+  puts 'Input your email:'
+  email_input = gets.chomp
+  user = User.find_by(email: email_input)
+  raise 'Email not found' unless user
+rescue RuntimeError => e
+  puts e.message
+  retry
+end
+
+puts 'What do you want to do?'
+
+begin
+  puts "0. Create shortened URL"
+  puts "1. Visit shortened URL"
+
+  input = gets.chomp.to_i
+
+  raise "Please select 0 or 1" unless [0,1].include?(input)
+rescue RuntimeError => e
+  puts e.message
+  retry
+end
+
+if input == 0
+  puts "Type in your long url"
+  long_url = gets.chomp
+  shortened_url = ShortenedUrl.create_for_user_and_long_url!(user, long_url)
+  puts "Short url is: #{shortened_url.short_url}"
+elsif input == 1
+  begin
+    puts "Type in the shortened URL"
+    shortened_url = ShortenedUrl.find_by(short_url: gets.chomp)
+    raise 'URL not found' unless shortened_url
+
+    Visit.record_visit!(user, shortened_url)
+    Launchy.open(shortened_url.long_url)
+  rescue RuntimeError => e
+    puts e.message
+    retry
+  end
+end
