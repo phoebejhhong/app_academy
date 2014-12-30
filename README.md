@@ -1,13 +1,19 @@
-App Academy Projects
-==============
+# App Academy Projects
 
-Ruby
---------------
+## Ruby
 
-w1 : Word Chains
+### w1
+ - Word Chains
 
-w2
+### w2
  - Minesweeper
- - chess
- - checkers
- - poker
+ - Chess
+ - Checkers
+ - Poker
+
+## SQL and ActiveRecord
+
+### w3
+ - SQL Zoo
+ - Question App
+ - Url Shortener App
