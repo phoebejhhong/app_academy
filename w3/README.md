@@ -1,4 +1,4 @@
-### w3 (SQL and ActiveRecord)
+## w3 (SQL and ActiveRecord)
 #### SQL Zoo
 * SQL exercises from http://sqlzoo.net
 
