@@ -2833,3 +2833,32 @@ SQLite3::SQLException: no such column: responses2.id: SELECT polls.id, COUNT(DIS
         WHERE
         responses.respondant_id = 4
       ) AS responses_by_user ON responses_by_user.answer_choice_id = answer_choices.id GROUP BY polls.id HAVING COUNT(DISTINCT questions.id) = COUNT(responses_by_user.id)[0m
+  [1m[36mPoll Load (5.1ms)[0m  [1mSELECT "polls".* FROM "polls"[0m
+  [1m[35mQuestion Load (0.6ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mResponse Load (1.2ms)[0m  [1mSELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ?[0m  [["question_id", 1]]
+  [1m[35mQuestion Load (0.3ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.5ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?[0m  [["question_id", 1]]
+  [1m[35mQuestion Load (0.6ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (1.8ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_i" = ?  [[nil, 1]]
+SQLite3::SQLException: no such column: answer_choices.question_i: SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_i" = ?
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.2ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?  [["question_id", nil]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (1.0ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?  [["question_id", 1]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.2ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?  [["question_id", nil]]
+  [1m[36mAnswerChoice Load (0.6ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices"  ORDER BY "answer_choices"."id" ASC LIMIT 1[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mAnswerChoice Load (0.2ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices"  ORDER BY "answer_choices"."id" ASC LIMIT 1[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (1.3ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_idd" = ?  [[nil, 1]]
+SQLite3::SQLException: no such column: answer_choices.question_idd: SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_idd" = ?
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.2ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?  [["question_id", nil]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (1.2ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_i" = ?  [[nil, 1]]
+SQLite3::SQLException: no such column: answer_choices.question_i: SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_i" = ?
