@@ -26,7 +26,7 @@ module Associatable
             -- id = humans.house_id
         WHERE
           #{through_options.table_name}.#{source_options.primary_key}
-            = #{self.send(through_options.primary_key)}
+            = #{self.send(through_options.foreign_key)}
         SQL
 
         results.map { |result| source_options.model_class.new(result) }.first
