@@ -1,0 +1,30 @@
+<h1>All Cats</h1>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Photo</th>
+      <th><%= link_to "Name", cats_path(ordered_by: :name, order: toggle_order(params[:ordered_by])), method: "get" %></th>
+      <th>Birth Date</th>
+      <th><%= link_to "Age", cats_path(ordered_by: :birth_date, order: toggle_order(params[:ordered_by])), method: "get" %></th>
+      <th>Color</th>
+      <th>Sex</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cats.each do |cat| %>
+    <tr>
+      <td><img src="<%= cat.image_url %>" height=150></td>
+      <td><%= link_to cat.name, cat %></td>
+      <td><%= cat.birth_date %></td>
+      <td><%= cat.age %></td>
+      <td><%= cat.color %></td>
+      <td><%= cat.sex %></td>
+      <td><%= cat.description %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<a href="/cats/new" class="btn btn-primary">New Cat</a>
+<a href="/cat_rental_requests/new" class="btn btn-primary">Rent a Cat</a>

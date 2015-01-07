@@ -1,0 +1,76 @@
+<% request_method = cat.persisted? ? 'patch' : 'post' %>
+<% action = cat.persisted? ? "/cats/#{cat.id}" : "/cats" %>
+<% submit_value = cat.persisted? ? 'Update Cat!' : 'New Cat!' %>
+
+<% if cat.errors.any? %>
+<ul>
+  <% cat.errors.full_messages.each do |msg| %>
+  <li>
+    <%= msg %>
+  </li>
+  <% end %>
+</ul>
+<% end %>
+<form action="<%= action %>" method="post" class="form-horizontal">
+  <input type="hidden" name="_method" value="<%= request_method %>">
+
+  <div class="form-group">
+    <label for="cat_name" class="col-md-2 control-label">Name</label>
+    <div class="col-md-6">
+      <input type="text" name="cat[name]" value="<%= cat.name %>" id="cat_name">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cat_birth_date" class="col-md-2 control-label">Birthday</label>
+    <div class="col-md-6">
+      <input type="date" name="cat[birth_date]" value="<%= cat.birth_date %>" id ="cat_birth_date">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cat_color" class="col-md-2 control-label">Color</label>
+    <div class="col-md-6">
+      <select name="cat[color]" id="cat_color">
+        <% Cat::COLORS.each do |color| %>
+        <option value="<%= color %>" <%= "selected" if color == cat.color %>>
+          <%= color %>
+        </option>
+        <% end %>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cat_sex" class="col-md-2 control-label">Sex</label>
+    <div class="col-md-6">
+      <select name="cat[sex]" id="cat_sex">
+        <% ['M', 'F'].each do |sex| %>
+        <option value="<%= sex %>" <%= "selected" if sex == cat.sex %>>
+          <%= sex %>
+        </option>
+        <% end %>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cat_desciption" class="col-md-2 control-label">Description</label>
+    <div class="col-md-6">
+      <input type="textarea" name="cat[description]" value="<%= cat.description %>" id="cat_id">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cat_image_url" class="col-md-2 control-label">Image Url</label>
+    <div class="col-md-6">
+      <input type="text" name="cat[image_url]" value="<%= cat.image_url %>" id="cat_image_url">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-6 col-md-offset-2">
+      <input type="submit" class="btn btn-default" value="<%= submit_value %>">
+    </div>
+  </div>
+</form>
