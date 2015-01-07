@@ -12,8 +12,7 @@ class Cat < ActiveRecord::Base
   )
 
   def age
-    # Use SQL to do this later
     Integer((Time.now - birth_date.to_time) / 31536000)
   end
-  
+
 end
