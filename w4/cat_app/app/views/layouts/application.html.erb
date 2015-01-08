@@ -30,9 +30,10 @@
     </ul>
   </nav>
   <% else %>
-  <span>
-    <%= link_to "Please Sign in", new_session_url %>
-  </span>
+  <p>Please 
+    <%= link_to " Sign in", new_session_url %> or
+    <%= link_to "Sign up!", new_user_url %>
+  </p>
   <% end %>
 
   <%- if flash.any? %>
