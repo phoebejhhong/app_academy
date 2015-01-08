@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CatApp</title>
+  <title>Rent a Cat</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <!-- Latest compiled and minified CSS -->
@@ -12,8 +12,36 @@
 </head>
 <body>
 <div class="container">
+    <% if current_user %>
+      <nav class="navbar navbar-default">
+        <p class="navbar-text"> Welcome, <%= current_user.username %>!</p>
+        <ul class="nav navbar-nav">
+          <li><%= link_to "Edit Profile", edit_user_url %></li>
+          <li><%= link_to "My Devices", user_url %></li>
+          <li><%= link_to "All Cats", cats_url %></li>
+          <form action="../session" method="post" class="navbar-form navbar-left">
+            <input type="hidden"
+            name="authenticity_token"
+            value="<%= form_authenticity_token %>">
+
+            <input type="hidden" name="_method" value="delete">
+            <input type="submit" value="Log Out" class="btn btn-default">
+        </form>
+    </ul>
+  </nav>
+  <% else %>
+  <span>
+    <%= link_to "Please Sign in", new_session_url %>
+  </span>
+  <% end %>
+
+  <%- if flash.any? %>
+    <%- flash.keys.each do |flash_key| %>
+      <%- next if flash_key.to_s == 'timedout' %>
+          <div><%= flash.discard(flash_key) %></div>
+      <%- end %>
+    <%- end %>
   <%= yield %>
-  
 </div>
 
 </body>

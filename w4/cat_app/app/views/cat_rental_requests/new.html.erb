@@ -13,6 +13,10 @@
 
   <form action="/cat_rental_requests" method="post" class="form-horizontal col-md-8">
 
+    <input type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>">
+
     <div class="form-group">
       <label class="col-md-2 control-label" for="cat_rental_request_cat_id">Cat</label>
       <div class="col-md-6">

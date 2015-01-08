@@ -11,21 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150107012247) do
+ActiveRecord::Schema.define(version: 20150108005045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "cat_rental_requests", force: true do |t|
     t.integer  "cat_id"
-    t.date     "start_date",                     null: false
-    t.date     "end_date",                       null: false
-    t.string   "status",     default: "PENDING", null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.date     "start_date",                       null: false
+    t.date     "end_date",                         null: false
+    t.string   "status",       default: "PENDING", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "requester_id",                     null: false
   end
 
   add_index "cat_rental_requests", ["cat_id"], name: "index_cat_rental_requests_on_cat_id", using: :btree
+  add_index "cat_rental_requests", ["requester_id"], name: "index_cat_rental_requests_on_requester_id", using: :btree
 
   create_table "cats", force: true do |t|
     t.date     "birth_date",                                                                                            null: false
@@ -36,7 +38,29 @@ ActiveRecord::Schema.define(version: 20150107012247) do
     t.datetime "created_at",                                                                                            null: false
     t.datetime "updated_at",                                                                                            null: false
     t.string   "image_url",   default: "https://d1luk0418egahw.cloudfront.net/static/images/guide/NoImage_592x444.jpg", null: false
+    t.integer  "owner_id",    default: 1,                                                                               null: false
   end
+
+  add_index "cats", ["owner_id"], name: "index_cats_on_owner_id", using: :btree
+
+  create_table "session_tokens", force: true do |t|
+    t.integer  "user_id",       null: false
+    t.string   "session_token", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "browser_info"
+    t.float    "latitude"
+    t.float    "longitude"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "username",        null: false
+    t.string   "password_digest", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   add_foreign_key "cat_rental_requests", "cats"
 end

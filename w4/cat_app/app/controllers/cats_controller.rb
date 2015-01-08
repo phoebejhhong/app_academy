@@ -1,4 +1,6 @@
 class CatsController < ApplicationController
+  before_action :ensure_owner, only: [:edit, :update]
+
   def index
     col = params[:ordered_by] || 'name'
     order = params[:order] || ''
@@ -25,7 +27,7 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
-
+    @cat.owner_id = current_user.id
     if @cat.save
       redirect_to @cat
     else
@@ -50,5 +52,13 @@ class CatsController < ApplicationController
   private
     def cat_params
       params.require(:cat).permit(:name, :description, :sex, :birth_date, :color, :image_url)
+    end
+
+    def ensure_owner
+      @cat = Cat.find(params[:id])
+      unless @cat.owner_id == current_user.id
+        flash[:error] = ["Only owner is allowed to do that!"]
+        redirect_to cat_url(@cat)
+      end
     end
 end

@@ -2,13 +2,12 @@ class CatRentalRequest < ActiveRecord::Base
   after_initialize :set_default_status
   STATUSES = ["APPROVED", "DENIED", "PENDING"]
   validates :cat_id, :start_date, :end_date, presence: true
-  validates :status, presence: true,
-            inclusion: { in: STATUSES, message: "%{value} is invalid" }
-  validate :no_overlapping_approved_request,
-          :date_validation, :start_date_validate, on: :create
+  validates :status, presence: true, inclusion: { in: STATUSES, message: "%{value} is invalid" }
+  validate :no_overlapping_approved_request, :date_validation, :start_date_validate, on: :create
 
-  belongs_to :cat, dependent: :destroy
-
+  belongs_to :cat
+  belongs_to :requester, class_name: "User"
+  
   def approve!
     if overlapping_approved_requests.empty?
       ActiveRecord::Base.transaction do
@@ -34,16 +33,12 @@ class CatRentalRequest < ActiveRecord::Base
     def set_default_status
       self.status ||= "PENDING"
     end
-
     def overlapping_requests
       where_query = <<-SQL
-        (cat_rental_requests.start_date - :second_end_date) *
-        (:second_start_date - cat_rental_requests.end_date) >= 0
-        AND cat_rental_requests.cat_id = :cat_id
+        (cat_rental_requests.start_date - :second_end_date) * (:second_start_date - cat_rental_requests.end_date) >= 0 AND
+        cat_rental_requests.cat_id = :cat_id
       SQL
-
-      CatRentalRequest.where(where_query, {second_end_date: end_date,
-                      second_start_date: start_date, cat_id: cat_id})
+      CatRentalRequest.where(where_query, {second_end_date: end_date, second_start_date: start_date, cat_id: cat_id})
     end
 
     def overlapping_approved_requests
@@ -56,19 +51,17 @@ class CatRentalRequest < ActiveRecord::Base
 
     def no_overlapping_approved_request
       unless overlapping_approved_requests.empty?
-        errors[:overlap] << ": already taken! Choose other cat or other dates"
+        errors[:overlap] << "already taken!"
       end
     end
 
     def date_validation
       if (end_date && start_date) && end_date < start_date
-        errors[:date_conflict] << ": start date should be earlier than end date"
+        errors[:date_conflict] << "start date should be earlier than end date"
       end
     end
 
     def start_date_validate
-      if 1.week.from_now > start_date
-        errors[:date_conflict] << ": needs to request at least 1 week in advance"
-      end
+      errors[:date_conflict] << "needs to request 1 week in advance" if 1.week.from_now > start_date
     end
 end

@@ -2650,3 +2650,32 @@ SQLite3::SQLException: no such column: groupings.contact_group_id: SELECT "group
   [1m[36mContactGroup Load (0.2ms)[0m  [1mSELECT  "contact_groups".* FROM "contact_groups" WHERE "contact_groups"."owner_id" = ?  ORDER BY "contact_groups"."id" ASC LIMIT 1[0m  [["owner_id", 1]]
   [1m[35mContact Load (0.3ms)[0m  SELECT "contacts".* FROM "contacts" INNER JOIN "groupings" ON "contacts"."id" = "groupings"."contact_id" WHERE "groupings"."group_id" = ?  [["group_id", 1]]
   [1m[36mUser Load (4.8ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[36mComment Load (4.2ms)[0m  [1mSELECT "comments".* FROM "comments"[0m
+
+
+Started GET "/" for ::1 at 2015-01-06 19:32:57 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /Users/phoebehong/.rvm/gems/ruby-2.1.1/gems/railties-4.2.0.rc1/lib/rails/templates/rails/welcome/index.html.erb (2.6ms)
+Completed 200 OK in 29ms (Views: 17.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for ::1 at 2015-01-06 19:33:01 -0800
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (1.0ms)[0m  SELECT "users".* FROM "users"
+Completed 200 OK in 32ms (Views: 9.1ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/users/2" for ::1 at 2015-01-06 19:36:34 -0800
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (1.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 2]]
+Completed 200 OK in 102ms (Views: 4.0ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/users/2/comments" for ::1 at 2015-01-06 19:36:38 -0800
+Processing by CommentsController#index as HTML
+  Parameters: {"user_id"=>"2"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mComment Load (0.7ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."commentable_id" = ? AND "comments"."commentable_type" = ?[0m  [["commentable_id", 2], ["commentable_type", "User"]]
+Completed 200 OK in 48ms (Views: 2.7ms | ActiveRecord: 1.4ms)
