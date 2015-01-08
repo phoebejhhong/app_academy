@@ -1,20 +1,39 @@
-
-<h3>Places You Are Logged In</h3>
-
-<% @user.session_tokens.each do |token| %>
-  <li><%= token.browser_info %>
-    @ <%= [token.latitude, token.longitude] %>
-    <% if token.session_token == session[:session_token] %>
-     <span><- Current Device</span>
-    <% else %>
-  <form action="<%= log_out_other_device_session_url %>" method="post">
-    <input type="hidden"
-    name="authenticity_token"
-    value="<%= form_authenticity_token %>">
-    <input type="hidden" name="token[session_token]" value="<%= token.session_token %>">
-    <input type="hidden" name="_method" value="delete">
-    <input type="submit" name="name" value="Log Out!">
-  </form>
-  <% end %>
-  </li>
-<% end %>
+<h3>Places You Are Logged-In</h3>
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Device</th>
+        <th>@ Latitude, Longitude</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tr>
+      <% @user.session_tokens.each do |token| %>
+      <tbody>
+        <td>
+          <%= token.browser_info %>
+        </td>
+        <td>
+          @ <%= [token.latitude, token.longitude] %>
+        </td>
+        <td>
+          @ <%= token.created_at %>
+        </td>
+        <% if token.session_token == session[:session_token] %>
+          <td>Current Device</td>
+        <% else %>
+          <td>
+            <form action="<%= log_out_other_device_session_url %>" method="post">
+              <input type="hidden"
+              name="authenticity_token"
+              value="<%= form_authenticity_token %>">
+              <input type="hidden" name="token[session_token]" value="<%= token.session_token %>">
+              <input type="hidden" name="_method" value="delete">
+              <input type="submit" name="name" value="Log Out!">
+            </form>
+          </td>
+        <% end %>
+      <% end %>
+  </table>
+</div>
