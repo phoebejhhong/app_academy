@@ -24,6 +24,9 @@
     </tr>
   </tbody>
 </table>
+<% if @cat.owner_id == current_user.id %>
+  <%= link_to "Edit Cat Profile", edit_cat_path(@cat), class: 'btn btn-primary' %>
+<% end %>
 <% if @cat.rental_requests.any? %>
 <table class="table">
   <h3>Rent Requests</h3>
@@ -58,6 +61,3 @@
       </tr>
       <% end %>
   <% end %>
-<% if @cat.owner_id == current_user.id %>
-  <%= link_to "Edit Cat Profile", edit_cat_path(@cat), class: 'btn btn-primary' %>
-<% end %>
