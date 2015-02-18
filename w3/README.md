@@ -6,6 +6,9 @@
 * Simple Ruby app that enables users to author, reply to and like questions.
 
 #### Url Shortener App
-* CLI implemented App to keep track of users with their generated shortened URLs and visits to them
+* CLI implemented app to keep track of users with their generated shortened URLs and visits to them
 
 #### Polling App
+
+#### ActiveRecord Lite
+* Simple ORM. Features include associations such as has_many, belong_to and has_one_through.
